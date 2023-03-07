@@ -35,9 +35,7 @@ class Service
 
     public function update($user, $data)
     {
-        if ($data['password'] == NULL) {
-            unset($data['password']);
-        } else {
+        if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
         $user->update($data);

@@ -13,7 +13,7 @@
                     @method('patch')
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label class="text-black" for="name_loc">Отредактируйе название</label>
+                            <label class="text-black" for="name_loc">Отредактируйте название</label>
                             <input value="{{ $location->NAME }}" name="name_loc" id="name_loc" class="form-control">
                             @error('name_loc')
                             <p class='text-danger'> {{ $message }}</p>

@@ -58,7 +58,7 @@
 
           <div class="row form-group">
             <div class="col-md-12">
-              <button onclick="ShowGroupings();" type="button" class="btn btn-primary py-2 px-2 text-white"><i class="bi bi-plus-circle"></i> Добавить управляемую группу</button>
+              <button onclick="ShowGroupings();" type="button" class="btn btn-primary py-2 px-2 text-white"><i class="bi bi-plus-circle"></i> Добавить группу</button>
             </div>
           </div>
 
