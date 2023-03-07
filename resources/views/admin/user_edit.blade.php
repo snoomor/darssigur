@@ -32,22 +32,68 @@
             </div>
           </div>
 
+          <input id='location_id_hide' hidden name="location_id"
+          @if($cur_loc[0]->PARENT_ID != 0)
+          value="{{ $cur_loc[0]->ID }}"
+          @endif 
+          >
           <div class="row form-group">
             <div class="col-md-12">
-              <label class="text-black" for="location_id">Объект</label>
-              <select value="{{$user->locations}}" name="location_id" id="location_id" class="form-control">
+              <div class="b-pass">
+                <label class="text-black" for="location_id">Объект</label>
+                <select name="location_id" id="location_id" @if($cur_loc[0]->PARENT_ID != 0)
+          disabled='disabled'
+          @endif class="form-control">
                 @foreach($locations as $location)
-                <option @if ($user->locations == $location->ID)
-                  selected
-                  @endif
+                <option 
+                @if($location->ID == $cur_loc[0]->PARENT_ID OR $location->ID == $cur_loc[0]->ID)
+                selected
+                @endif
                   value="{{ $location->ID }}">{{ $location->NAME }}</option>
                 @endforeach
-              </select>
+                  @foreach ($data as $location)
+                  <option value="{{ $location['location'][0]->ID }}">{{ $location['location'][0]->NAME }}</option>
+                  @endforeach
+                </select>
+
+              </div>
+              <div onclick="UpdateGrouping();" class="l-pass">
+                <input disabled class="update form-control">
+              </div>
               @error('location_id')
               <p class='text-danger'> {{ $message }}</p>
               @enderror
             </div>
           </div>
+
+          <div class="row form-group">
+            <div class="col-md-12">
+              <button onclick="ShowGroupings();" type="button" class="btn btn-primary py-2 px-2 text-white"><i class="bi bi-plus-circle"></i> Добавить группу</button>
+            </div>
+          </div>
+
+          @foreach ($data as $key=>$location)
+          <div id='groupings_{{$key}}' 
+          @if ($cur_loc[0]->PARENT_ID != 0 AND $cur_loc[0]->PARENT_ID != $key)
+          class='hide'
+          @elseif ($cur_loc[0]->PARENT_ID == 0)
+          class='hide'
+          @endif
+          >
+            @if(sizeof($location['groupings']) > 0)
+            @foreach ($location['groupings'] as $grouping)
+            <div>
+              <label><input value="{{$grouping->ID}}" type="radio" name="groupings"
+              @if($grouping->ID == $cur_loc[0]->ID) checked @endif
+              > {{$grouping->NAME}}</label>
+            </div>
+            @endforeach
+            @else
+            <p>Нет групп внутри объекта</p>
+            @endif
+          </div>
+          @endforeach
+
           <div class="row form-group">
             <div class="col-md-12">
               <label class="text-black" for="role">Роль</label>

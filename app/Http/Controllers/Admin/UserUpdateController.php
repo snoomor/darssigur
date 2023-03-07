@@ -15,6 +15,10 @@ class UserUpdateController extends BaseController
         if($data['password']==NULL){
             unset($data['password']);
         }
+        if (isset($data['groupings'])) {
+            $data['locations'] = $data['groupings'];
+            unset($data['groupings']);
+        }
         $email = $data['email_hid'];
         unset($data['email_hid']);
         $data['locations'] = $data['location_id'];
