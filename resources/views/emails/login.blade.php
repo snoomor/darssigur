@@ -17,7 +17,7 @@
     @endif
     </p>
     <p>Информируем Вас о том, что Вы несете отвественность за достоверность предостваляемых Вами данных о регистриуемых сотрудниках.</p></br>
-    <p>Страница входа в сиситему: <a href="http://sigur.darscompany.ru">sigur.darscompany.ru</a></p>
+    <p>Страница входа в сиситему: <a href="https://sigur.darscompany.ru">sigur.darscompany.ru</a></p>
     <p>Логин: {{ $email }}</p>
     <p>Пароль: {{ $password }}</p><br>
     <p>По всем вопросам обращаться на почту d.novikov@darscompany.ru</p>
