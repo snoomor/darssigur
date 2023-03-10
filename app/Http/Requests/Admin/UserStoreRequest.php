@@ -32,6 +32,7 @@ class UserStoreRequest extends FormRequest
             'location_id' => ['required', new Location(),],
             'groupings' => '',
             'role' => 'required|string',
+            'devices' => '',
             'password' => ['required','max:20','min:8', new Password(),],
             'send'  => '',
         ];

@@ -12,6 +12,7 @@ class UserStoreController extends BaseController
     {
         $data = $request->validated();
         $send = false;
+        $devices = '';
         $data['locations'] = $data['location_id'];
         if (isset($data['groupings'])) {
             $data['locations'] = $data['groupings'];
@@ -21,7 +22,14 @@ class UserStoreController extends BaseController
             $send = true;
             unset($data['send']);
         }
-        
+        if (isset($data['devices'])){
+            foreach ($data['devices'] as $device) {
+                $devices .= $device.';';
+            }
+            $devices = substr($devices,0,-1);
+            $data['devices'] = $devices;
+        }
+
         unset($data['location_id']);
         if ($this->service->userStore($data)) {
             if ($send) {

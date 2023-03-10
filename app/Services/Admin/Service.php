@@ -23,6 +23,14 @@ class Service
             ->where('STATUS', '!=', 'FIRED');
         return $locations;
     }
+
+    public function devices()
+    {
+        return DB::connection('sigur')->table('devices')
+            ->selectRaw('*, CAST(CONVERT(NAME USING utf8) AS binary) as NAME')
+            ->get();
+    }
+
     public function userStore($data)
     {
         $data['password'] = Hash::make($data['password']);

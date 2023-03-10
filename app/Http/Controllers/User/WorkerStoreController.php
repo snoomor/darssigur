@@ -17,6 +17,14 @@ class WorkerStoreController extends BaseController
         $data['new_id'] = $new_id;
         $this->service->workerCodeStore($data);
         $this->service->workerAddRule($data);
+        $devices = $this->service->whichDevices(session('guest_id'));
+        
+        if ($devices[0]->devices != NULL) {
+            $devices = explode(';', $devices[0]->devices);
+            foreach ($devices as $device) {
+                $this->service->workerAddDevices($device, $data['new_id']);
+            }
+        }
         if (isset($data['image'])) {
             $data = $action->handle($data['new_id'], $data);
 
@@ -24,7 +32,7 @@ class WorkerStoreController extends BaseController
                 session()->put('type', 'warning');
                 session()->flash('flashmessage', 'Произошла ошибка при загрузке фото. Загрузите другое фото или уменьшите размер этого фото до 350КБ.');
                 return redirect()->route('worker.edit', $data['new_id']);
-            } 
+            }
             $this->service->workerPhoto($data);
             File::delete('storage/uploads/' . session('guest_loc_id') . $data['new_id'] . '.jpg');
         }

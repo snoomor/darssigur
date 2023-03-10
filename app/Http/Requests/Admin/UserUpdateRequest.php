@@ -30,6 +30,7 @@ class UserUpdateRequest extends FormRequest
             'location_id' => 'required|integer',
             'groupings' => '',
             'role' => 'required|string',
+            'devices' => '',
             'password' => ['nullable', 'max:20','min:8', new Password(),],
             'send' => '',
         ];

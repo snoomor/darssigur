@@ -24,7 +24,7 @@
           <div class="row form-group">
             <div class="col-md-12">
               <label class="text-black" for="email">Почта</label>
-              <input value="{{$user->email}}" name="email_hid"class="hide">
+              <input value="{{$user->email}}" name="email_hid" class="hide">
               <input disabled value="{{$user->email}}" name="email" id="email" class="form-control">
               @error('email')
               <p class='text-danger'> {{ $message }}</p>
@@ -35,22 +35,23 @@
           <input id='location_id_hide' hidden name="location_id"
           @if($cur_loc[0]->PARENT_ID != 0)
           value="{{ $cur_loc[0]->ID }}"
-          @endif 
+          @endif
           >
           <div class="row form-group">
             <div class="col-md-12">
               <div class="b-pass">
                 <label class="text-black" for="location_id">Объект</label>
-                <select name="location_id" id="location_id" @if($cur_loc[0]->PARENT_ID != 0)
-          disabled='disabled'
-          @endif class="form-control">
-                @foreach($locations as $location)
-                <option 
-                @if($location->ID == $cur_loc[0]->PARENT_ID OR $location->ID == $cur_loc[0]->ID)
-                selected
-                @endif
-                  value="{{ $location->ID }}">{{ $location->NAME }}</option>
-                @endforeach
+                <select name="location_id" id="location_id" 
+                @if($cur_loc[0]->PARENT_ID != 0)
+                  disabled='disabled'
+                @endif class="form-control">
+                  @foreach($locations as $location)
+                   <option
+                    @if($location->ID == $cur_loc[0]->PARENT_ID OR $location->ID == $cur_loc[0]->ID)
+                      selected
+                    @endif
+                    value="{{ $location->ID }}">{{ $location->NAME }}</option>
+                  @endforeach
                   @foreach ($data as $location)
                   <option value="{{ $location['location'][0]->ID }}">{{ $location['location'][0]->NAME }}</option>
                   @endforeach
@@ -111,11 +112,30 @@
           </div>
 
           <div class="row form-group">
+            <div class="col-md-12">
+              <label class="text-black">Доступ</label>
+              <p>При изменении доступов у ранее заведенных работников этим пользователем доступы НЕ изменятся.
+                Меняются в ручную в Sigur.</p>
+              @foreach ($devices as $device)
+              <div>
+                <label><input value="{{$device->ID}}" type="checkbox" 
+                @if (in_array($device->ID, $cur_dev)) checked 
+                @endif
+                name="devices[]"> {{$device->NAME}}</label>
+              </div>
+              @endforeach
+              @error('devices')
+              <p class='text-danger'> {{ $message }}</p>
+              @enderror
+            </div>
+          </div>
+
+          <div class="row form-group">
             <div class="relat col-md-12">
-              
+
               <label class="text-black" for="password">Пароль</label>
               <p>При заполнении этого поля пароль будет изменен на введенный вами, 
-                а также пользователю будет отправлено сообщение о смене пароля с новыми данными для входа. 
+                а также пользователю будет отправлено сообщение о смене пароля с новыми данными для входа.
                 Оставьте поле пустым, если не хотите менять текущий пароль.</p><br>
               <div class="">
                 <div class="b-pass">

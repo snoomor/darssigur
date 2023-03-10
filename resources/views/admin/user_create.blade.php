@@ -90,6 +90,20 @@
           </div>
 
           <div class="row form-group">
+            <div class="col-md-12">
+              <label class="text-black">Доступ</label>
+                @foreach ($devices as $device)
+                <div>
+                  <label><input value="{{$device->ID}}" type="checkbox" name="devices[]"> {{$device->NAME}}</label>
+                </div>
+                @endforeach
+                @error('devices')
+                <p class='text-danger'> {{ $message }}</p>
+                @enderror
+            </div>
+          </div>
+
+          <div class="row form-group">
             <div class="relat col-md-12">
               <label class="text-black" for="password1">Пароль</label><br>
               <div class="">
@@ -107,9 +121,9 @@
 
           </div>
           <div class="row form-group">
-          <div class="col-md-12">
-            <label><input value="send" checked type="checkbox" name="send"> Отправить логин и пароль на почту</label>
-          </div>
+            <div class="col-md-12">
+              <label><input value="send" checked type="checkbox" name="send"> Отправить логин и пароль на почту</label>
+            </div>
           </div>
 
           <div class="row form-group">

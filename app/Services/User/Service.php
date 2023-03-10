@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class Service
@@ -121,6 +122,20 @@ class Service
             ->insert([
                 'PERSONAL_ID' => $data['new_id'],
                 'RULE_ID' => 1,
+            ]);
+    }
+
+    public function whichDevices($user_id)
+    {
+        return User::where('id', '=', $user_id)->select('devices')->get();
+    }
+
+    public function workerAddDevices($device, $worker_id)
+    {
+        DB::connection('sigur')->table('devbindings')
+            ->insert([
+                'EMP_ID' => $worker_id,
+                'DEV_ID' => $device,
             ]);
     }
 }
